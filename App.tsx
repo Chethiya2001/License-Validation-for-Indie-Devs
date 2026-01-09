@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { 
   CheckCircle, 
@@ -24,7 +25,8 @@ import {
   Ban,
   Clock,
   DollarSign,
-  Coffee
+  Coffee,
+  ArrowDown
 } from 'lucide-react';
 
 // --- Sub-components ---
@@ -87,7 +89,7 @@ const WaitlistForm: React.FC<{ variant?: 'hero' | 'bottom' }> = ({ variant = 'he
   if (submitted) {
     return (
       <div className="bg-slate-50 border border-slate-200 p-4 rounded-lg flex items-center gap-3 animate-in fade-in duration-500 max-w-md">
-        <CheckCircle className="text-emerald-500 w-5 h-5 shrink-0" />
+        <CheckCircle className="text-slate-900 w-5 h-5 shrink-0" />
         <span className="text-sm font-medium text-slate-700">You're on the list. We'll be in touch soon.</span>
       </div>
     );
@@ -102,7 +104,7 @@ const WaitlistForm: React.FC<{ variant?: 'hero' | 'bottom' }> = ({ variant = 'he
             placeholder="Enter your email"
             className={`w-full px-4 py-3 rounded-lg border transition-all duration-200 outline-none text-sm ${
               error 
-                ? 'border-rose-300 bg-rose-50/30 focus:border-rose-500 focus:ring-4 focus:ring-rose-500/10' 
+                ? 'border-slate-400 bg-slate-50 focus:border-slate-900' 
                 : 'border-slate-200 bg-white focus:border-slate-900 focus:ring-4 focus:ring-slate-900/5 shadow-sm'
             }`}
             value={email}
@@ -125,7 +127,7 @@ const WaitlistForm: React.FC<{ variant?: 'hero' | 'bottom' }> = ({ variant = 'he
         </button>
       </form>
       {error && (
-        <div className="flex items-center gap-1.5 text-rose-600 animate-in slide-in-from-top-1 fade-in duration-200">
+        <div className="flex items-center gap-1.5 text-slate-600 animate-in slide-in-from-top-1 fade-in duration-200">
           <AlertCircle className="w-3.5 h-3.5" />
           <span className="text-xs font-medium">{error}</span>
         </div>
@@ -246,7 +248,7 @@ const App: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {[
               {
-                icon: <Ban className="w-5 h-5 text-rose-500" />,
+                icon: <Ban className="w-5 h-5 text-slate-900" />,
                 text: "Pirated copies spread quickly without protection."
               },
               {
@@ -293,7 +295,7 @@ const App: React.FC = () => {
           
           <div className="p-8 rounded-2xl border border-slate-100 bg-slate-50/50 flex flex-col">
             <h3 className="text-slate-500 font-mono text-xs uppercase tracking-widest mb-6 flex items-center gap-2">
-              <XCircle className="w-4 h-4" /> Without This App (Today)
+              <XCircle className="w-4 h-4" /> Without This App
             </h3>
             <p className="text-slate-400 text-[10px] font-bold mb-4 uppercase tracking-tighter">You must:</p>
             <ul className="space-y-3 flex-1">
@@ -316,19 +318,19 @@ const App: React.FC = () => {
 
           <div className="p-8 rounded-2xl border border-slate-900 bg-slate-900 text-white shadow-xl flex flex-col">
             <h3 className="text-slate-400 font-mono text-xs uppercase tracking-widest mb-6 flex items-center gap-2">
-              <CheckCircle className="w-4 h-4 text-emerald-400" /> With SimpleAuth
+              <CheckCircle className="w-4 h-4 text-white" /> With SimpleAuth
             </h3>
             <p className="text-slate-400 text-[10px] font-bold mb-4 uppercase tracking-tighter">You simply:</p>
             <ul className="space-y-4 flex-1">
               {[
-                "Create a product in the dashboard",
+                "Register your product",
                 "Generate license keys",
-                "Put one API call in your app",
-                "Get valid or invalid",
-                "That’s it. Zero complexity."
+                "One API call in your app",
+                "Get instant validation",
+                "Ship your product"
               ].map((item, i) => (
                 <li key={i} className="flex items-start gap-3 text-slate-200 text-sm font-medium">
-                  <ArrowRight className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                  <ArrowRight className="w-4 h-4 text-white shrink-0 mt-0.5" />
                   {item}
                 </li>
               ))}
@@ -337,39 +339,39 @@ const App: React.FC = () => {
         </div>
       </Section>
 
-      {/* Simplified How It Works Section */}
+      {/* Horizontal & Simple How It Works Section */}
       <Section 
         id="how-it-works"
         title="Four steps to go live" 
-        subtitle="Minimal setup. Maximum protection. Built for developer productivity."
+        subtitle="The minimalist flow to professional licensing."
         className="bg-slate-50/40 border-y border-slate-200 max-w-none"
       >
-        <div className="max-w-4xl mx-auto py-4" ref={stepsRef}>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="max-w-4xl mx-auto py-8" ref={stepsRef}>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {[
               { 
                 icon: <Package className="w-5 h-5" />, 
-                title: "Create Product", 
-                desc: "Define your project in our intuitive web dashboard.",
-                num: "01"
+                title: "Register", 
+                desc: "Define your product rules in the dash.",
+                num: "Step 01"
               },
               { 
                 icon: <Key className="w-5 h-5" />, 
-                title: "Generate Keys", 
-                desc: "Issue keys manually or automate it with our REST API.",
-                num: "02"
+                title: "Keys", 
+                desc: "Issue keys manually or via API.",
+                num: "Step 02"
               },
               { 
                 icon: <Code2 className="w-5 h-5" />, 
-                title: "Integrate API", 
-                desc: "Add our single-endpoint validation call to your code.",
-                num: "03"
+                title: "Integrate", 
+                desc: "Add 10 lines of code to your app.",
+                num: "Step 03"
               },
               { 
                 icon: <Activity className="w-5 h-5" />, 
-                title: "Validate", 
-                desc: "Instantly confirm license status on every app launch.",
-                num: "04"
+                title: "Ship", 
+                desc: "Validate every launch instantly.",
+                num: "Step 04"
               }
             ].map((step, idx) => (
               <div 
@@ -379,73 +381,78 @@ const App: React.FC = () => {
                 }`}
                 style={{ transitionDelay: `${idx * 100}ms` }}
               >
-                <div className="flex items-baseline justify-between mb-4">
-                  <div className="w-10 h-10 bg-slate-900 rounded-lg flex items-center justify-center text-white shadow-sm">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="w-12 h-12 bg-slate-900 text-white rounded-xl flex items-center justify-center shadow-sm">
                     {step.icon}
                   </div>
-                  <span className="text-xs font-mono font-bold text-slate-300 tracking-widest">{step.num}</span>
                 </div>
-                <h4 className="font-bold text-slate-900 mb-2 text-sm">{step.title}</h4>
-                <p className="text-slate-500 text-xs leading-relaxed">
+                <span className="text-[10px] font-mono font-bold text-slate-400 mb-1 uppercase tracking-widest">{step.num}</span>
+                <h4 className="font-bold text-slate-900 mb-2 text-base tracking-tight">{step.title}</h4>
+                <p className="text-slate-500 text-sm leading-relaxed">
                   {step.desc}
                 </p>
               </div>
             ))}
           </div>
 
-          <div className={`mt-16 pt-8 border-t border-slate-200 flex flex-col md:flex-row items-center justify-between gap-6 transition-all duration-1000 delay-500 ${stepsVisible ? 'opacity-100' : 'opacity-0'}`}>
-            <div className="flex items-center gap-3 text-sm font-medium text-slate-600">
+          <div className={`mt-12 flex justify-center transition-all duration-1000 delay-500 ${stepsVisible ? 'opacity-100' : 'opacity-0'}`}>
+            <div className="flex items-center gap-3 text-sm font-medium text-slate-600 bg-white border border-slate-200 px-4 py-2 rounded-full">
               <Zap className="w-4 h-4 text-slate-900" />
-              <span>No servers to manage. No complex SDKs. Just one API.</span>
+              <span>Integration complete. No complex servers needed.</span>
             </div>
-            <a href="#root" className="text-sm font-bold text-slate-900 flex items-center gap-2 hover:gap-3 transition-all">
-              Ready to start? <ArrowRight className="w-4 h-4" />
-            </a>
           </div>
         </div>
       </Section>
 
-      {/* Modern Built for Builders Section */}
-      <Section title="Built for the builders">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4" ref={solutionsRef}>
+      {/* Redesigned Built for Builders Section (B&W) */}
+      <Section 
+        title="Built for the builders" 
+        subtitle="A tool for developers who value speed and simplicity."
+      >
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6" ref={solutionsRef}>
           {[
             { 
-              icon: <Globe className="w-6 h-6" />, 
+              icon: <Globe className="w-8 h-8" />, 
               label: "Web App Founders", 
-              desc: "Protect your SaaS dashboard or premium templates.",
-              highlight: "bg-blue-50/50 border-blue-100" 
+              desc: "Protect premium dashboards or gated UI components.",
+              border: "hover:border-slate-300"
             },
             { 
-              icon: <Monitor className="w-6 h-6" />, 
-              label: "Desktop Software Devs", 
+              icon: <Monitor className="w-8 h-8" />, 
+              label: "Desktop Software", 
               desc: "Simple key validation for macOS, Windows, or Linux apps.",
-              highlight: "bg-purple-50/50 border-purple-100" 
+              border: "hover:border-slate-300"
             },
             { 
-              icon: <Layers className="w-6 h-6" />, 
-              label: "Plugin & Template Sellers", 
-              desc: "Manage access to your premium themes and plugins.",
-              highlight: "bg-orange-50/50 border-orange-100" 
+              icon: <Layers className="w-8 h-8" />, 
+              label: "Plugin Creators", 
+              desc: "Manage access for VS Code, Figma, or CMS extensions.",
+              border: "hover:border-slate-300"
             },
             { 
-              icon: <Cpu className="w-6 h-6" />, 
-              label: "CLI & Tooling Authors", 
-              desc: "Add licensing to your developer tools with ease.",
-              highlight: "bg-emerald-50/50 border-emerald-100" 
+              icon: <Cpu className="w-8 h-8" />, 
+              label: "Tooling & CLI", 
+              desc: "Add licensing to your developer terminal utilities easily.",
+              border: "hover:border-slate-300"
             }
           ].map((item, idx) => (
             <div 
               key={idx} 
-              className={`group p-8 rounded-3xl border-2 transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl ${item.highlight} ${
+              className={`group relative p-8 rounded-3xl border border-slate-100 bg-white transition-all duration-500 hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-200/50 ${item.border} ${
                 solutionsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
               }`}
               style={{ transitionDelay: `${idx * 150}ms` }}
             >
-              <div className="w-12 h-12 rounded-2xl bg-white border border-slate-200 flex items-center justify-center text-slate-900 mb-6 group-hover:bg-slate-900 group-hover:text-white transition-all">
+              <div className="w-14 h-14 rounded-2xl bg-slate-50 flex items-center justify-center text-slate-900 mb-8 transition-transform group-hover:scale-105 duration-300">
                 {item.icon}
               </div>
-              <h3 className="font-bold text-slate-900 text-xl mb-2 tracking-tight">{item.label}</h3>
-              <p className="text-slate-500 text-sm leading-relaxed">{item.desc}</p>
+              <h3 className="font-bold text-slate-900 text-xl mb-3 tracking-tight">{item.label}</h3>
+              <p className="text-slate-500 text-sm leading-relaxed mb-6">
+                {item.desc}
+              </p>
+              <div className="flex items-center text-xs font-bold text-slate-300 group-hover:text-slate-900 transition-colors gap-1">
+                View integration <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+              </div>
             </div>
           ))}
         </div>
@@ -453,17 +460,20 @@ const App: React.FC = () => {
 
       {/* Pricing Validation */}
       <Section id="pricing" title="Simple pricing" className="text-center md:text-left">
-        <div className="bg-slate-900 text-white rounded-3xl p-8 md:p-12 relative overflow-hidden shadow-2xl border border-white/5">
-          <div className="absolute top-0 right-0 p-8 opacity-5 hidden sm:block">
-            <ShieldCheck className="w-48 h-48" />
+        <div className="bg-slate-900 text-white rounded-[2rem] p-8 md:p-14 relative overflow-hidden shadow-2xl border border-white/5">
+          <div className="absolute top-0 right-0 p-8 opacity-[0.02] hidden sm:block">
+            <ShieldCheck className="w-64 h-64" />
           </div>
           <div className="relative z-10">
-            <div className="text-3xl md:text-5xl font-bold mb-4 tracking-tight">Planned: $10<span className="text-slate-500 font-normal text-xl md:text-2xl">/month</span></div>
-            <p className="text-slate-400 text-base md:text-lg mb-8 max-w-md">No free tier. Cancel anytime. Serious tools for serious developers.</p>
-            <div className="flex flex-wrap gap-x-6 gap-y-3 text-sm text-slate-300 font-mono border-t border-white/10 pt-6">
-              <span className="flex items-center gap-2 shrink-0"><CheckCircle className="w-4 h-4 text-emerald-500" /> Unlimited Keys</span>
-              <span className="flex items-center gap-2 shrink-0"><CheckCircle className="w-4 h-4 text-emerald-500" /> 10 Products</span>
-              <span className="flex items-center gap-2 shrink-0"><CheckCircle className="w-4 h-4 text-emerald-500" /> Full API Access</span>
+            <div className="text-4xl md:text-6xl font-bold mb-4 tracking-tight">Planned: $10<span className="text-slate-500 font-normal text-xl md:text-3xl">/month</span></div>
+            <p className="text-slate-400 text-base md:text-lg mb-10 max-w-lg leading-relaxed">No free tier. Cancel anytime. One simple price for everything.</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 text-sm text-slate-300 font-mono border-t border-white/10 pt-10">
+              <span className="flex items-center gap-3"><CheckCircle className="w-5 h-5 text-white" /> Unlimited Keys</span>
+              <span className="flex items-center gap-3"><CheckCircle className="w-5 h-5 text-white" /> 10 Products</span>
+              <span className="flex items-center gap-3"><CheckCircle className="w-5 h-5 text-white" /> Webhook Events</span>
+              <span className="flex items-center gap-3"><CheckCircle className="w-5 h-5 text-white" /> Full API Access</span>
+              <span className="flex items-center gap-3"><CheckCircle className="w-5 h-5 text-white" /> Email Support</span>
+              <span className="flex items-center gap-3"><CheckCircle className="w-5 h-5 text-white" /> Dashboard Access</span>
             </div>
           </div>
         </div>
@@ -472,33 +482,33 @@ const App: React.FC = () => {
       {/* Final Validation CTA */}
       <Section title="Would you pay $10/month for this?" className="mb-20">
         <div className="max-w-2xl">
-          <p className="text-lg text-slate-600 mb-8 leading-relaxed">
+          <p className="text-lg md:text-xl text-slate-600 mb-10 leading-relaxed">
             I’m validating this idea before building. Join the waitlist if this solves a real problem for you. 
           </p>
-          <div className="p-6 bg-slate-50 border border-slate-200 rounded-xl mb-10 border-l-4 border-l-slate-900 shadow-sm relative group overflow-hidden">
-             <div className="absolute -right-4 -bottom-4 opacity-5 group-hover:rotate-12 transition-transform">
-               <Code2 className="w-24 h-24" />
+          <div className="p-8 bg-slate-50 border border-slate-200 rounded-2xl mb-12 border-l-4 border-l-slate-900 shadow-sm relative group overflow-hidden">
+             <div className="absolute -right-4 -bottom-4 opacity-[0.02] group-hover:rotate-12 transition-transform">
+               <Code2 className="w-32 h-32 text-slate-900" />
              </div>
-             <p className="italic text-slate-500 text-sm leading-relaxed mb-2">
+             <p className="italic text-slate-500 text-base md:text-lg leading-relaxed mb-4">
                "I spent two weeks setting up licensing for my own Mac app. That was two weeks I wasn't shipping features. SimpleAuth solves that."
              </p>
-             <span className="font-semibold text-slate-900 uppercase text-[10px] tracking-widest">— Founder's Note</span>
+             <span className="font-bold text-slate-900 uppercase text-xs tracking-widest">— Founder's Note</span>
           </div>
           <WaitlistForm variant="bottom" />
         </div>
       </Section>
 
       {/* Footer */}
-      <footer className="py-12 px-6 border-t border-slate-200 text-slate-400 text-sm text-center">
-        <div className="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="flex items-center gap-2 font-bold text-slate-900">
-            <ShieldCheck className="w-4 h-4" />
+      <footer className="py-16 px-6 border-t border-slate-100 text-slate-400 text-sm text-center">
+        <div className="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+          <div className="flex items-center gap-2 font-bold text-slate-900 text-lg">
+            <ShieldCheck className="w-5 h-5" />
             <span>SimpleAuth</span>
           </div>
-          <p className="max-w-xs md:max-w-none text-xs">Built by an indie developer. Early adopters will influence the roadmap.</p>
-          <div className="flex gap-6">
-            <a href="https://x.com/simpleauth_io" target="_blank" rel="noopener noreferrer" className="hover:text-slate-900 transition-colors">Twitter/X</a>
-            <a href="https://github.com/simpleauth-io" target="_blank" rel="noopener noreferrer" className="hover:text-slate-900 transition-colors">GitHub</a>
+          <p className="max-w-xs md:max-w-none text-slate-500">Built by an indie developer. Early adopters will influence the roadmap.</p>
+          <div className="flex gap-8">
+            <a href="#" className="hover:text-slate-900 transition-colors">Twitter/X</a>
+            <a href="#" className="hover:text-slate-900 transition-colors">GitHub</a>
           </div>
         </div>
       </footer>
@@ -506,12 +516,12 @@ const App: React.FC = () => {
       {/* Scroll to Top Button */}
       <button
         onClick={scrollToTop}
-        className={`fixed bottom-8 right-8 p-3 bg-slate-900 text-white rounded-full shadow-lg hover:bg-slate-800 transition-all duration-300 z-50 transform hover:scale-110 active:scale-95 ${
+        className={`fixed bottom-8 right-8 p-4 bg-slate-900 text-white rounded-full shadow-2xl hover:bg-slate-800 transition-all duration-300 z-50 transform hover:scale-110 active:scale-95 ${
           showScrollTop ? 'translate-y-0 opacity-100 scale-100' : 'translate-y-16 opacity-0 scale-75 pointer-events-none'
         }`}
         aria-label="Scroll to top"
       >
-        <ChevronUp className="w-5 h-5" />
+        <ChevronUp className="w-6 h-6" />
       </button>
       
       <style>{`
@@ -521,6 +531,9 @@ const App: React.FC = () => {
         }
         .animate-spin-slow {
           animation: spin-slow 12s linear infinite;
+        }
+        html {
+          scroll-behavior: smooth;
         }
       `}</style>
     </div>
