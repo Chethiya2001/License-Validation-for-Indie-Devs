@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { 
   CheckCircle, 
@@ -21,7 +20,11 @@ import {
   ShieldAlert,
   Cpu,
   Globe,
-  Monitor
+  Monitor,
+  Ban,
+  Clock,
+  DollarSign,
+  Coffee
 } from 'lucide-react';
 
 // --- Sub-components ---
@@ -174,17 +177,28 @@ const Section: React.FC<{ title: string; subtitle?: string; children: React.Reac
 const App: React.FC = () => {
   const [showScrollTop, setShowScrollTop] = useState(false);
   const solutionsRef = useRef<HTMLDivElement>(null);
+  const stepsRef = useRef<HTMLDivElement>(null);
+  const problemsRef = useRef<HTMLDivElement>(null);
+  
   const [solutionsVisible, setSolutionsVisible] = useState(false);
+  const [stepsVisible, setStepsVisible] = useState(false);
+  const [problemsVisible, setProblemsVisible] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setShowScrollTop(window.scrollY > 400);
     window.addEventListener('scroll', handleScroll);
     
     const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) setSolutionsVisible(true);
+      if (entry.isIntersecting) {
+        if (entry.target === solutionsRef.current) setSolutionsVisible(true);
+        if (entry.target === stepsRef.current) setStepsVisible(true);
+        if (entry.target === problemsRef.current) setProblemsVisible(true);
+      }
     }, { threshold: 0.1 });
     
     if (solutionsRef.current) observer.observe(solutionsRef.current);
+    if (stepsRef.current) observer.observe(stepsRef.current);
+    if (problemsRef.current) observer.observe(problemsRef.current);
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
@@ -220,10 +234,57 @@ const App: React.FC = () => {
         <CodeSnippet />
       </header>
 
+      {/* Problem Section */}
+      <section className="py-24 px-6 bg-slate-50 border-y border-slate-200 overflow-hidden">
+        <div className="max-w-4xl mx-auto" ref={problemsRef}>
+          <h2 className={`text-2xl md:text-3xl font-bold tracking-tight mb-12 text-slate-900 transition-all duration-700 ease-out ${
+            problemsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}>
+            Selling software is easy. Managing licenses is not.
+          </h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {[
+              {
+                icon: <Ban className="w-5 h-5 text-rose-500" />,
+                text: "Pirated copies spread quickly without protection."
+              },
+              {
+                icon: <Clock className="w-5 h-5 text-slate-400" />,
+                text: "Rolling your own license system wastes weeks of engineering."
+              },
+              {
+                icon: <DollarSign className="w-5 h-5 text-slate-400" />,
+                text: "Existing solutions are expensive or absolute overkill."
+              },
+              {
+                icon: <Coffee className="w-5 h-5 text-slate-400" />,
+                text: "License logic distracts from your real product development."
+              }
+            ].map((problem, i) => (
+              <div 
+                key={i} 
+                className={`flex items-start gap-4 p-6 bg-white border border-slate-200 rounded-2xl transition-all duration-1000 ease-out ${
+                  problemsVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'
+                }`}
+                style={{ transitionDelay: `${i * 150}ms` }}
+              >
+                <div className="w-10 h-10 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center shrink-0">
+                  {problem.icon}
+                </div>
+                <p className="text-slate-600 text-sm leading-relaxed font-medium">
+                  {problem.text}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Comparison Section - Real Example */}
       <Section 
         title="Understand it simply" 
-        subtitle="Selling software is easy. Managing licenses is not. Here is how SimpleAuth changes your workflow."
+        subtitle="We handle the complexity so you can focus on building features."
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative">
           <div className="hidden md:block absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 bg-white p-2 rounded-full border border-slate-200 shadow-sm text-slate-400">
@@ -272,6 +333,74 @@ const App: React.FC = () => {
                 </li>
               ))}
             </ul>
+          </div>
+        </div>
+      </Section>
+
+      {/* Simplified How It Works Section */}
+      <Section 
+        id="how-it-works"
+        title="Four steps to go live" 
+        subtitle="Minimal setup. Maximum protection. Built for developer productivity."
+        className="bg-slate-50/40 border-y border-slate-200 max-w-none"
+      >
+        <div className="max-w-4xl mx-auto py-4" ref={stepsRef}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+            {[
+              { 
+                icon: <Package className="w-5 h-5" />, 
+                title: "Create Product", 
+                desc: "Define your project in our intuitive web dashboard.",
+                num: "01"
+              },
+              { 
+                icon: <Key className="w-5 h-5" />, 
+                title: "Generate Keys", 
+                desc: "Issue keys manually or automate it with our REST API.",
+                num: "02"
+              },
+              { 
+                icon: <Code2 className="w-5 h-5" />, 
+                title: "Integrate API", 
+                desc: "Add our single-endpoint validation call to your code.",
+                num: "03"
+              },
+              { 
+                icon: <Activity className="w-5 h-5" />, 
+                title: "Validate", 
+                desc: "Instantly confirm license status on every app launch.",
+                num: "04"
+              }
+            ].map((step, idx) => (
+              <div 
+                key={idx} 
+                className={`flex flex-col transition-all duration-700 ${
+                  stepsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+                }`}
+                style={{ transitionDelay: `${idx * 100}ms` }}
+              >
+                <div className="flex items-baseline justify-between mb-4">
+                  <div className="w-10 h-10 bg-slate-900 rounded-lg flex items-center justify-center text-white shadow-sm">
+                    {step.icon}
+                  </div>
+                  <span className="text-xs font-mono font-bold text-slate-300 tracking-widest">{step.num}</span>
+                </div>
+                <h4 className="font-bold text-slate-900 mb-2 text-sm">{step.title}</h4>
+                <p className="text-slate-500 text-xs leading-relaxed">
+                  {step.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <div className={`mt-16 pt-8 border-t border-slate-200 flex flex-col md:flex-row items-center justify-between gap-6 transition-all duration-1000 delay-500 ${stepsVisible ? 'opacity-100' : 'opacity-0'}`}>
+            <div className="flex items-center gap-3 text-sm font-medium text-slate-600">
+              <Zap className="w-4 h-4 text-slate-900" />
+              <span>No servers to manage. No complex SDKs. Just one API.</span>
+            </div>
+            <a href="#root" className="text-sm font-bold text-slate-900 flex items-center gap-2 hover:gap-3 transition-all">
+              Ready to start? <ArrowRight className="w-4 h-4" />
+            </a>
           </div>
         </div>
       </Section>
